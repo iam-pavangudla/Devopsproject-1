@@ -10,7 +10,7 @@ pipeline {
       stage('checkout') {
             steps {
                 echo 'Cloning GIT HUB Repo '
-				git branch: 'main', url: 'https://github.com/devopstraininghub/mindcircuit13.git'
+				git branch: 'main', url: 'https://github.com/iam-pavangudla/Devopsproject-1.git'
             }  
         }
 		
@@ -22,8 +22,8 @@ pipeline {
                 sh 'ls -ltr'
                 
                 sh ''' mvn sonar:sonar \\
-                      -Dsonar.host.url=http://44.210.116.12:9000 \\
-                      -Dsonar.login=squ_a46b6947d43a812180415ff94219120d2ddebcea'''
+                      -Dsonar.host.url=http://44.213.103.148:9000 \\
+                      -Dsonar.login=squ_619997dbc9c7d7d1f47215e672ecf58b5efe3c40'''
             }
     	}
 		
@@ -41,7 +41,7 @@ pipeline {
         stage('Docker Image') {
             steps {
                 echo 'Docker Image building'
-				sh 'docker build -t devopshubg333/batch13:${BUILD_NUMBER} .'
+				sh 'docker build -t prudhvigudla2025/devops-workspace:${BUILD_NUMBER} .'
             }
         }
 		
@@ -49,12 +49,12 @@ pipeline {
        stage('Push to Dockerhub') {
             steps {
 			 script {
-			withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) 
+			withCredentials([string(credentialsId: 'dockerpassword', variable: 'dockerhub')]) 
 			{
-            sh 'docker login -u devopshubg333 -p ${dockerhub}'
+            sh 'docker login -u prudhvigudla2025 -p ${dockerhub}'
 			
 			 }
-			   sh 'docker push devopshubg333/batch13:${BUILD_NUMBER}'
+			   sh 'docker push prudhvigudla2025/devops-workspace:${BUILD_NUMBER}'
 			   
            
 				}
@@ -66,8 +66,8 @@ pipeline {
     stage('Update Deployment File') {
 		
 		 environment {
-            GIT_REPO_NAME = "mindcircuit13"
-            GIT_USER_NAME = "devopstraininghub"
+            GIT_REPO_NAME = "Devopsproject-1"
+            GIT_USER_NAME = "iam-pavangudla"
         }
 		
             steps {
@@ -78,7 +78,7 @@ pipeline {
                     git config user.email "gorekarmadhu@gmail.com"
                     git config user.name "Madhu"
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/batch13:.*/batch13:${BUILD_NUMBER}/g" deploymentfiles/deployment.yml
+                    sed -i "s/devops-workspace:.*/devops-workspace:${BUILD_NUMBER}/g" deploymentfiles/deployment.yml
                     git add .
                     
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
