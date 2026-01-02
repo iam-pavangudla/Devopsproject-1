@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: mc-app
-        image: prudhvigudla2025/devops-workspace:5
+        image: prudhvigudla2025/devops-workspace:9
         ports:
         - containerPort: 8080
 
