@@ -21,8 +21,9 @@ pipeline {
                 echo 'scanning project'
                 sh 'ls -ltr'
                 
-                sh ''' mvn sonar:sonar \\
-                      -Dsonar.host.url=http://44.213.103.148:9000 \\
+                sh ''' mvn clean verify \\
+                       org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+                      -Dsonar.host.url=http://34.201.29.73:9000 \\
                       -Dsonar.login=squ_619997dbc9c7d7d1f47215e672ecf58b5efe3c40'''
             }
     	}
