@@ -23,7 +23,7 @@ pipeline {
                 
                 sh ''' mvn clean verify \\
                        org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-                      -Dsonar.host.url=http://34.201.29.73:9000 \\
+                      -Dsonar.host.url=http://3.239.206.98:9000 \\
                       -Dsonar.login=squ_619997dbc9c7d7d1f47215e672ecf58b5efe3c40'''
             }
     	}
