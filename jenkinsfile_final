@@ -42,7 +42,7 @@ pipeline {
         stage('Docker Image') {
             steps {
                 echo 'Docker Image building'
-				sh 'docker build -t prudhvigudla2025/devops-workspace:${BUILD_NUMBER} .'
+				sh 'docker build -t pavangudla77/devops-workspace-1:${BUILD_NUMBER} .'
             }
         }
 		
@@ -52,10 +52,10 @@ pipeline {
 			 script {
 			withCredentials([string(credentialsId: 'dockerpassword', variable: 'dockerhub')]) 
 			{
-            sh 'docker login -u prudhvigudla2025 -p ${dockerhub}'
+            sh 'docker login -u pavangudla77 -p ${dockerhub}'
 			
 			 }
-			   sh 'docker push prudhvigudla2025/devops-workspace:${BUILD_NUMBER}'
+			   sh 'docker push pavangudla77/devops-workspace-1:${BUILD_NUMBER}'
 			   
            
 				}
@@ -79,7 +79,7 @@ pipeline {
                     git config user.email "gorekarmadhu@gmail.com"
                     git config user.name "Madhu"
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/devops-workspace:.*/devops-workspace:${BUILD_NUMBER}/g" deploymentfiles/deployment.yml
+                    sed -i "s/devops-workspace-1:.*/devops-workspace-1:${BUILD_NUMBER}/g" deploymentfiles/deployment.yml
                     git add .
                     
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
